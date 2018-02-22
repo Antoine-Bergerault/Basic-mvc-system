@@ -9,6 +9,12 @@
     <title>Homepage</title>
 </head>
 <body>
-<h1>Homepage</h1>
+<div class="container center">
+    <h1>Homepage</h1>
+    <ul>
+        <li><a href="<?=route('/test')?>">Test</a></li>
+        <li><a href="<?=route('/github')?>">Github - Info</a></li>
+    </ul>
+</div>
 </body>
 </html>

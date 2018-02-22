@@ -9,6 +9,6 @@
     <title>Github - Info</title>
 </head>
 <body>
-<h2>Basic MVC light system</h2>
+<h5><a href="https://github.com/Antoine-Bergerault/Basic-mvc-system">https://github.com/Antoine-Bergerault/Basic-mvc-system</a></h5>
 </body>
 </html>

@@ -11,6 +11,15 @@ require('Router/web.php');
 function view($name){
     require("Views/$name.php");
 }
+function route($path, $url = '/'){
+    $root = (isset($_SERVER['HTTPS']) ? "https://" : "http://"). "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $root = explode($url, $root);
+    $root = $root[0];
+    $route_path = $root;
+    $path = ltrim($path, '/');
+    $route_path .= $path;
+    return $route_path;
+}
 
 $page = false;
 for($i = 0;$i<sizeof(Router::$routes);$i++){
