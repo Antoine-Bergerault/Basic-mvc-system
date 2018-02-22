@@ -1,0 +1,22 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+h1, h2, h3, h4, h5, h6{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    font-weight: 200;
+    color: rgba(146, 146, 146, 0.75);
+}
+h1{font-size: 5.6em;}
+h2{font-size: 4em;}
+h3{font-size: 3em;}
+h4{font-size: 2em;}
+h5{font-size: 1.3em;}
+h6{font-size: 1.1em;}
