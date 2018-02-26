@@ -8,6 +8,6 @@ Router::get('/', function(){
    return view('home');
 });
 
-Router::default_path('/');
+Router::default_path('/test');
 
 ?>

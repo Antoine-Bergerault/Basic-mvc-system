@@ -17,11 +17,7 @@ class Router{
         $method = $callback[1];
         require_once 'Controller/'.$controller.'.php';
         $Controller = new $controller;
-        $res = $Controller->$method();
-        $func = function() use ($res) {
-            return $res;
-        };
-        return $func;
+        return array($Controller, $method);//$Controller->$method() will be executed
     }
 
     static function match($url, $path, $id){
