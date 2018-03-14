@@ -1,13 +1,24 @@
 <?php
 
+/** @var string $url */
 $url = '/';
 if(isset($_GET['url'])){
     $url = '/'.$_GET['url'];
 }
 
+require('Router/Class/Route.php');
 require('Router/Class/Router.php');
 require('Router/web.php');
 
+function debug($arr){
+    echo '<pre>';
+    var_dump($arr);
+    echo '</pre>';
+    return true;
+}
+function redirect($path){
+    echo '<script>window.location = "'.$path.'";</script>';
+}
 function view($name){
     require("Views/$name.php");
 }
@@ -21,17 +32,9 @@ function route($path, $url = '/'){
     return $route_path;
 }
 
-$page = false;
-for($i = 0;$i<sizeof(Router::$routes);$i++){
-    if(Router::match($url, Router::$routes[$i]['path'] ,$i)){
-        $func = Router::$routes[$i]['callback'];
-        echo $func();
-        $i = sizeof(Router::$routes);
-        $page = true;
-    }
-}
+echo Router::run($url);
 
-if(!$page){
+/*if($page == false){
     if(Router::$default != false){
         //echo $_SERVER['DOCUMENT_ROOT'].Router::$default;
         $root = (isset($_SERVER['HTTPS']) ? "https://" : "http://"). "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -42,6 +45,6 @@ if(!$page){
         //header("Location : $path");
         //exit;
     }
-}
+}*/
 
 ?>

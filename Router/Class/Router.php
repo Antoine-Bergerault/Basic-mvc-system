@@ -1,37 +1,47 @@
 <?php
+
 class Router{
     static $routes = [];
     static $default = false;
 
     static function get($path, $callback){
-        $len = sizeof(self::$routes);
-        self::$routes[$len] = [
-            'path' => $path,
-            'callback' => $callback
-        ];
+        $route = new Route($path, $callback);
+        self::$routes['GET'][] = $route;
+        
     }
 
-    static function callback_to_func($callback){
-        $callback = explode('@', $callback);
-        $controller = $callback[0];
-        $method = $callback[1];
-        require_once 'Controller/'.$controller.'.php';
-        $Controller = new $controller;
-        return array($Controller, $method);//$Controller->$method() will be executed
-    }
-
-    static function match($url, $path, $id){
-        if($url == $path){
-            if(is_string(self::$routes[$id]['callback'])){
-                self::$routes[$id]['callback'] = self::callback_to_func(self::$routes[$id]['callback']);
-            }
-            return true;
-        }
-        return false;
+    static function post($path, $callback){
+        $route = new Route($path, $callback);
+        self::$routes['POST'][] = $route;
     }
 
     static function default_path($path){
         self::$default = $path;
+    }
+
+    /**
+     * @return bool || function
+     */
+    static function run($url){
+        $method = $_SERVER['REQUEST_METHOD'];
+        if(isset(self::$routes[$method])) {
+
+            /*debug(self::$routes[$method]);
+            die();*/
+            for($i = 0; $i < sizeof(self::$routes[$method]); $i++) {
+                $route = self::$routes[$method][$i];
+                if($route->match($url)){
+                    return $route->callback();
+                }
+            }
+        }
+        
+        if(self::$default != false){
+            return redirect(route(self::$default));
+        }else{
+            return view('errors/error404');
+        }
+
     }
 
 }
