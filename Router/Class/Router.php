@@ -37,7 +37,8 @@ class Router{
         }
         
         if(self::$default != false){
-            return redirect(route(self::$default));
+            redirect(route(self::$default, $url));
+            return false;
         }else{
             return view('errors/error404');
         }

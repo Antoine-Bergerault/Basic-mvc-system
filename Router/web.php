@@ -7,6 +7,6 @@ Router::get('/', function(){
    return view('home');
 });
 
-Router::default_path('/test');
+Router::default_path('/');
 
 ?>
