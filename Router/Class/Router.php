@@ -7,12 +7,13 @@ class Router{
     static function get($path, $callback){
         $route = new Route($path, $callback);
         self::$routes['GET'][] = $route;
-        
+        return $route;
     }
 
     static function post($path, $callback){
         $route = new Route($path, $callback);
         self::$routes['POST'][] = $route;
+        return $route;
     }
 
     static function default_path($path){
