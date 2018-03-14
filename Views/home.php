@@ -14,6 +14,7 @@
     <ul>
         <li><a href="<?=route('/test')?>">Test</a></li>
         <li><a href="<?=route('/github')?>">Github - Info</a></li>
+        <li><a href="<?=route('/params/test')?>">Param</a></li>
     </ul>
 </div>
 </body>

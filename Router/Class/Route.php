@@ -4,6 +4,7 @@ class Route{
 
     public $path = '/';
     public $callback;
+    public $matches = [];
 
     /**
      * Route constructor.
@@ -28,10 +29,14 @@ class Route{
     }
 
     public function match($url){
-        if($url == $this->path){
-            return true;
+        $path = preg_replace('#{([\w]+)}#', '([^/]+)', $this->path);
+        $regex = "#^$path$#i";
+        if(!preg_match($regex, $url, $matches)){
+            return false;
         }
-        return false;
+        array_shift($matches);
+        $this->matches = $matches;
+        return true;
     }
 
     public function callback(){
@@ -39,7 +44,7 @@ class Route{
         if(is_string($callback)){
             $callback = $this->callback_to_func($callback);
         }
-        return call_user_func($callback);
+        return call_user_func_array($callback, $this->matches);
     }
 
 

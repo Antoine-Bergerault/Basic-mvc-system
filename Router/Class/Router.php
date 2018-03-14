@@ -20,14 +20,12 @@ class Router{
     }
 
     /**
-     * @return bool || function
+     * @return string
      */
     static function run($url){
         $method = $_SERVER['REQUEST_METHOD'];
         if(isset(self::$routes[$method])) {
 
-            /*debug(self::$routes[$method]);
-            die();*/
             for($i = 0; $i < sizeof(self::$routes[$method]); $i++) {
                 $route = self::$routes[$method][$i];
                 if($route->match($url)){
@@ -35,7 +33,7 @@ class Router{
                 }
             }
         }
-        
+
         if(self::$default != false){
             redirect(route(self::$default, $url));
             return false;
