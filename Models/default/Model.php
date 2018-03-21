@@ -48,8 +48,8 @@ class Model{
     }
 
     //return a number of occurence
-    public function find($n){
-        $this->params["LIMIT"] = "$n";
+    public function find($n, $f = 0){
+        $this->params["LIMIT"] = "$f,$n";
         return $this;
     }
 

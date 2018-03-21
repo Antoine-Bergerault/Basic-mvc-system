@@ -1,0 +1,39 @@
+#button{
+    height: 50px;
+    width: 600px;
+    background: #fff;
+    border: 0.5px solid black;
+    cursor: pointer;
+    text-align: center;
+    line-height: 50px;
+}
+
+#res{
+    margin-top: 10px;
+    height: 800px;
+    width: 600px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    text-align: left;
+    overflow: scroll;
+}
+
+.loader{
+    margin: 0 auto;
+    height: 50px;
+    width: 50px;
+    border: 3px solid transparent;
+    border-top-color: rgb(27, 27, 124);
+
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin{
+    from{
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(360deg)
+    }
+}

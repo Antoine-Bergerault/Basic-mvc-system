@@ -16,7 +16,18 @@ Router::get('/db', function(){
             ])
             ->find(5)//get only the first 5 results
             ->run();//make the request
-    return view('db', compact('data'));//send data to the view
+    return view('db-view-test', compact('data'));//send data to the view
+});
+
+Router::get('/ajax', function(){
+    return view('ajax');
+});
+
+Router::get('/test/ajax', function(){
+    require_once 'Models/TestModel.php';
+    $model = new Test();
+    $data = $model->find(1, 0)->run();
+    return view('elements/profile', compact('data'));//doesn't work if you have not setting up a database
 });
 
 Router::get('/', function(){

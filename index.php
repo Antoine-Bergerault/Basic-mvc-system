@@ -10,11 +10,11 @@ require('Router/Class/Route.php');//class for the routes
 require('Router/Class/Router.php');//class for the router
 require('Router/web.php');//assign the url
 
+
 function debug($arr){
     echo '<pre>';
     var_dump($arr);
     echo '</pre>';
-    return true;
 }
 function redirect($path){
     echo '<script>window.location = "'.$path.'";</script>';
