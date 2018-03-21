@@ -6,9 +6,9 @@ if(isset($_GET['url'])){
     $url = '/'.$_GET['url'];
 }
 
-require('Router/Class/Route.php');
-require('Router/Class/Router.php');
-require('Router/web.php');
+require('Router/Class/Route.php');//class for the routes
+require('Router/Class/Router.php');//class for the router
+require('Router/web.php');//assign the url
 
 function debug($arr){
     echo '<pre>';
@@ -19,7 +19,10 @@ function debug($arr){
 function redirect($path){
     echo '<script>window.location = "'.$path.'";</script>';
 }
-function view($name){
+function view($name, $data = null){
+    if($data != null){
+        extract($data);
+    }
     require("Views/$name.php");
 }
 function route($path, $url = '/'){
