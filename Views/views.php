@@ -29,13 +29,13 @@
     <div class="return-code"><span>return :</span> The parameter is : hello</div>
 
     <h3>It is really useful to require some others files inside a view.</h3>
-    <p>For example, all the pages (views) here has that at the beginning :</p>
+    <p>For example, all the pages (views) here have that at the beginning :</p>
     <pre class="code"><code>&#60?php <span class="function">require_once</span>(<span class="string">'header.php'</span>) ?&#62 </code></pre>
     <div class="name-code">Views/header.php</div>
     <pre class="code"><code>&#60?php <span class="function">require_once</span>(<span class="string">'menu.php'</span>) ?&#62
 &#60div id="main-container"&#62</code></pre>
     <div class="name-code">Views/menu.php</div>
-    <pre class="code"><code>&#60link rel="stylesheet" href="&#60?=<span class="function">root()</span>?&#62public/css/menu.css"&#62
+    <pre class="code"><code>&#60link rel="stylesheet" href="&#60?=<span class="function">root</span>()?&#62public/css/menu.css"&#62
 &#60nav&#62
     &#60ul&#62
         &#60li&#62&#60a href="&#60?=<span class="function">route</span>(<span class="string">'/'</span>)?&#62"&#62Home&#60/a&#62&#60/li&#62
