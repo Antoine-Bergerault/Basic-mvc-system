@@ -1,3 +1,24 @@
+<Files *.php>
+    # Apache < 2.4
+    Satisfy all
+    Deny from all
+    # Apache >= 2.4
+    #Require all denied
+</Files>
+<Files *.sql>
+    # Apache < 2.4
+    Satisfy all
+    Deny from all
+    # Apache >= 2.4
+    #Require all denied
+</Files>
+<Files index.php>
+    # Apache < 2.4
+     Allow from all
+    # Apache >= 2.4
+    #Require all granted
+</Files>
+
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

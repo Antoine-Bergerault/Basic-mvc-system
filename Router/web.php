@@ -4,12 +4,14 @@ Router::get('/', 'MainController@home');
 
 Router::get('/path','MainController@path');
 
-Router::get('/model',function(){
-    return view('model');
-});
+Router::get('/model','MainController@model');
 
 Router::get('/controller',function(){
     return view('controller');
+});
+
+Router::get('/configuration',function(){
+    return view('configuration');
 });
 
 Router::get('/structure',function(){

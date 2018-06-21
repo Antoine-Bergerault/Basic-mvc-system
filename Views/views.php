@@ -18,7 +18,7 @@
     <h2>How to display a view ?</h2>
     <p>To display a view, we have to use the function view(), which take one mandatory parameter and an optional one.</p>
     <pre class="code no-margin"><code><span class="function">view</span>(<span class="string">'home'</span>);</code></pre>
-    <div class="return-code"><span>return :</span> It will return the view <span class="path white">Views/home.php</span>.</div>
+    <div class="return-code"><span>return : </span>It will return the view <span class="path white">Views/home.php</span>.</div>
 
     <h2>Parameters for the views</h2>
     <p>The second parameter for the view() function is used to pass parameters to the view. Parameters are include using the compact() php function.</p>

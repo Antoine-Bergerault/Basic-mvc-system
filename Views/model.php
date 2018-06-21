@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>How to use models</title>
     <link rel="stylesheet" href="<?=root()?>public/css/default.css">
-    <link rel="stylesheet" href="<?=root()?>public/css/code.css">    
+    <link rel="stylesheet" href="<?=root()?>public/css/code.css">
 </head>
 <body>
 <?php require_once('header.php') ?>
-    
+
     <h1 class="middle">How to use models</h1>
 
     <p>The models can be created in <span class="path">Models</span> and must include <span class="path">Models/default/Model.php</span>.<br>
@@ -37,6 +37,10 @@
         <pre class="code">
 <code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">where</span>([<span class="string">'name'</span> => <span class="string">'LIKE A%'</span>])</code></pre>
         </li>
+        <li><h3>For more security, use this :</h3>
+        <pre class="code">
+<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">where</span>([<span class="string">'name'</span> => <span class="string">'LIKE ?%'</span>])-><span class="method">args</span>([<span class="param">$arg</span>])</code></pre>
+        </li>
         <br><br>
         <li><h3>You can also put several conditions at the same time :</h3>
         <pre class="code">
@@ -48,10 +52,17 @@
     <div style="display: grid;grid-template-columns: auto auto;grid-gap:8px;margin: 80px 0;">
         <i class="em-svg em-warning" style="height: 95px;width: 95px;"></i>
         <div>
-            <h2 style="margin: 0;padding: 0;">Before returning the result of the model, you must execut :</h2>
+            <h2 style="margin: 0;padding: 0;">Before returning the result of the model, you must execute :</h2>
                 <pre class="code" style="margin: 0;"><code><span class="param">$Model</span>-><span class="method">run</span>()</code></pre>
         </div>
     </div>
+
+    <h3>If you want to know the see the generated query without make the request to the database :</h3>
+        <pre class="code no-margin">
+<code><span class="param">$Model</span>-><span class="method">find</span>(<span class="param">5</span>)-><span class="method">where</span>([<span class="string">'name'</span> => <span class="string">'LIKE ?%'</span>,<span class="string">'token'</span> => <span class="string">'= ?'</span>])-><span class="method">args</span>([<span class="string">'A'</span>,<span class="string">'bz75vga23vsaT6QFy5fqv5q'</span>]);
+<span class="param">$Model</span>-><span class="method">sql</span>();</code></pre>
+        <div class="return-code"><span>return : </span><span class="string white">'<?=$sql?>'</span></div>
+
 <?php require_once('footer.php') ?>
 </body>
 </html>

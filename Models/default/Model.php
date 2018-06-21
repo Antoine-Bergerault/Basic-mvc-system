@@ -11,12 +11,13 @@ class Model{
     //define the tablename, this is required
     public $table = '';
     private $params = [
-        "SELECT" => "*",//By default, all the elements
-        "FROM" => false,//are set to false to set the priorities
-        "WHERE" => false,//and the order of the options
-        "ORDER BY" => false,//
-        "LIMIT" => false//
+        "SELECT" => "*",
+        "FROM" => false,
+        "WHERE" => false,
+        "ORDER BY" => false,
+        "LIMIT" => false
     ];//params array for the queries
+    private $args = [];
 
     public function __construct(){//constructor function
         $this->params["FROM"] = "`$this->table`";
@@ -48,6 +49,10 @@ class Model{
         return $this;
     }
 
+    public function from($table){//use it especially for inner join
+        $this->params["FROM"] = $table;
+    }
+
     //return the first occurence
     public function first(){
         return $this->find(1);
@@ -60,7 +65,7 @@ class Model{
     }
 
     //a where condition is apply to the query
-    public function where($arr){//ex of $arr : ['name' => 'LIKE A%','email' => 'test@test.com']
+    public function where($arr){//ex of $arr : ['name' => 'LIKE A%','email' => '= test@test.com']
         $c = "";
         $x = 0;
         foreach($arr as $key => $v){//for each param, translate to SQL language
@@ -83,10 +88,26 @@ class Model{
         $this->params["ORDER BY"] = $param." ASC";
         return $this;
     }
+    
+    public function args($arr){
+        $this->args = $arr;
+        return $this;
+    }
 
-    public function run(){//don't forget this to run the query
+    public function run(){//do forget this to run the query
         $sql = $this->sql();
-        return $this->query($sql);
+        return $this->query($sql,$this->args);
+    }
+
+    public function reset(){
+        $this->params = [
+            "SELECT" => "*",
+            "FROM" => false,
+            "WHERE" => false,
+            "ORDER BY" => false,
+            "LIMIT" => false
+        ];
+        return $this;
     }
 
     public function sql(){//create the sql request
@@ -99,11 +120,10 @@ class Model{
         return $str;
     }
 
-    public function query($sql){//execute the request
+    public function query($sql,$data = array()){//execute the request
         $db = new DB(Config::$host, Config::$username, Config::$password, Config::$database);
-        return $db->query($sql);
+        return $db->query($sql,$data);
     }
-
 
     public function create($arg, $table = false){//create a new element using the $arg. ex : ["name" => "Test", "email" => "test@test.com"]
         $keys = array_keys($arg);
@@ -121,12 +141,14 @@ class Model{
             $n++;
         }
         $sql .= ") VALUES (";
+        $arr = [];
         $n = 0;
         foreach($arg as $k => $v){
             if($k == 'pass'){
                 $v = password_hash($v, PASSWORD_BCRYPT);
             }
-            $sql .= "'$v'";
+            $arr[] = $v;
+            $sql .= "?";
             if($n != sizeof($arg) - 1){
                 $sql .= ", ";
             }
@@ -134,15 +156,31 @@ class Model{
         }
 
         $sql .= ")";
-        $this->query($sql);
+        $this->query($sql,$arr);
         return $sql;
 
     }
 
-    public function lastinsertid(){//return the last inserted id
-        return $this->query("SELECT id FROM $this->table ORDER BY id DESC LIMIT 1")[0]->id;
+    public function lastinsertid($c = 'id'){//return the last inserted id
+        $obj = $this->query("SELECT $c FROM $this->table ORDER BY $c DESC LIMIT 1")[0];
+        $arr = (array) $obj;
+        return $arr["$c"];
     }
 
+    public function count(){
+        $this->params['SELECT'] = 'COUNT(*)';
+        return $this;
+    }
+
+    public function fromcount($arr){
+        if(!empty($arr)){
+            $arr = (Array) $arr[0];
+            $arr = (int) reset($arr);
+        }else{
+            $arr = 0;
+        }
+        return $arr;
+    }
 
 }
 

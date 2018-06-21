@@ -31,10 +31,11 @@ class Route{
     }
 
     public function move($beg){//add at the beginning of the path. (used for grouping)
-        $this->path = $beg.$this->path;
+        if($this->path != false){
+            $this->path = $beg.$this->path;
+        }
         return $this;
     }
-
 
     private function callback_to_func($callback){//if callback is a Controller method, translate it
         $callback = explode('@', $callback);

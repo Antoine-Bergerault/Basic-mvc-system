@@ -4,6 +4,7 @@ class App{
 
     static $user = false;//variable to store the user
     static $url = null;//variable to store the url
+    static $extras = [];//extras
 
     static function load(){//equivalent of __construct
 
@@ -12,11 +13,33 @@ class App{
             $usr = $_SESSION['user'];//set the variable with the session content
             self::connect($usr);//connect to the user
         }
-        //
-        //You can load all the things you want here (ex: for the member system)
-        //
         self::seturl();//initialize the $url
+        self::load_extra();
 
+    }
+
+    static function load_extra(){
+
+        require_once('Extras.php');
+        $Extras = new Extras();
+
+        if(self::isset_session('flash')){
+            echo $Extras->flashes(self::get('flash'));
+            self::destroy('flash');
+        }
+    }
+
+    static function extra(){
+        require_once('Extras.php');
+        $Extras = new Extras();
+        /*if(self::get('active-func')){
+            echo $Extras->my_func();
+            loadCSS('css_file');
+            loadJS('js_file');
+        }*/
+        if(self::isset_session('debug')){
+            echo $Extras->debug(self::get('debug'));
+        }
     }
 
     static function session(){//start a session if it is not already done
@@ -26,6 +49,10 @@ class App{
         }
         return $_SESSION;
 
+    }
+
+    static function clear_session(){
+        $_SESSION = [];
     }
 
     static function connect($usr){//connect the app to the user passed in parameter as $usr
@@ -86,6 +113,7 @@ class App{
         if(isset($_SESSION) && isset($_SESSION['user'])){
             $_SESSION['user'] = false;
         }
+        self::clear_session();
 
     }
 
@@ -120,10 +148,50 @@ class App{
         return false;
     }
 
-    //The App classes can stored static method accessible by all files
+    static function save($key,$val = true){
+        self::session();
+        $_SESSION[$key] = $val;
+        return true;
+    }
+
+    static function get($key){
+        self::session();
+        if(isset($_SESSION[$key])){
+            return $_SESSION[$key];
+        }
+        return false;
+    }
+
+    static function destroy($key){
+        self::session();
+        if(isset($_SESSION[$key])){
+            unset($_SESSION[$key]);
+        }
+    }
+
+    static function add($key, $val){
+        self::session();
+        if(!self::isset_session($key)){
+            self::save($key, []);
+        }
+        if(!is_array(self::get($key))){
+            self::save($key, [self::get($key)]);;
+        }
+        $arr = self::get($key);
+        $arr[] = $val;
+        self::save($key, $arr);
+    }
+
+    static function isset_session($key){
+        return isset($_SESSION[$key]);
+    }
+
+    static function debug($v){
+        self::save('debug', debug($v));
+    }
 
 }
 
-App::load();//Call the load method
+App::load();
 
 ?>

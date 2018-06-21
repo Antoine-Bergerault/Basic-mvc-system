@@ -75,3 +75,6 @@ span.if-keyword, span.else-keyword{
 span.boolean{
     color: #f05555;
 }
+span.number{
+    color: #fcd03f;
+}
