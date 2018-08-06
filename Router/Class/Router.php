@@ -1,6 +1,7 @@
 <?php
 
 class Router{
+    
     static $routes = [];//list of routes
     static $default = false;//default route
 

@@ -1,23 +1,28 @@
+<FilesMatch ".*\.(css|js)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
 <Files *.php>
-    # Apache < 2.4
-    Satisfy all
+    Order Deny,Allow
     Deny from all
-    # Apache >= 2.4
-    #Require all denied
+    Allow from 127.0.0.1
 </Files>
-<Files *.sql>
-    # Apache < 2.4
-    Satisfy all
-    Deny from all
-    # Apache >= 2.4
-    #Require all denied
-</Files>
+
 <Files index.php>
-    # Apache < 2.4
-     Allow from all
-    # Apache >= 2.4
-    #Require all granted
+    Order Allow,Deny
+    Allow from all
 </Files>
+
+<IfModule mod_expires.so>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 days"
+  ExpiresByType text/css "access plus 1 hours"
+  ExpiresByType text/js "access plus 1 days"
+  ExpiresByType image/jpg "access plus 2 days"
+  ExpiresByType image/jpeg "access plus 2 days"
+  ExpiresByType image/png "access plus 2 days"
+  ExpiresByType image/gif "access plus 2 days
+</IfModule>
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f

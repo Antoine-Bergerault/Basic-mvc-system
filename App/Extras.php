@@ -14,7 +14,7 @@ class Extras{
         }
 
         $root = (isset($_SERVER['HTTPS']) ? "https://" : "http://"). "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
+        
         $url = '/';
         if(isset($_GET['url'])){//set the url
             $url = '/'.$_GET['url'];
@@ -22,10 +22,15 @@ class Extras{
 
         $root = explode($url, $root);
         $root = $root[0];
-
+        
         $root = trim($root, '/');
 
-        $elem .= '<script src="'.$root.'/public/js/tools/notif.js"></script>';
+        $elem .= '<script>for (var elem of document.querySelectorAll(\'.flash-delete\')){
+                            elem.addEventListener(\'click\',function(){
+                                this.parentElement.style.display = \'none\';
+                            });
+                          }
+                  </script>';
         return $elem;
     }
 

@@ -22,10 +22,13 @@ class Cache {
         }
         $lifetime = (time() - filemtime($file)) / 60;
         if($lifetime > $this->duration){
+            if($filename == 'home'){
+                $this->clearfolder('load');
+            }
             return false;
         }
         return file_get_contents($file);
-
+        
     }
 
     public function write($filename, $content){
@@ -71,13 +74,13 @@ class Cache {
 
         $path = "./$this->dirname/";
         $dirs = array();
-
+    
         foreach (new DirectoryIterator($path) as $file) {
             if ($file->isDir() && !$file->isDot()) {
                 $dirs[] = $file->getFilename();
             }
         }
-
+    
         return $dirs;
     }
 

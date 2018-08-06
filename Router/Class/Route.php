@@ -2,10 +2,11 @@
 
 class Route{
 
-    public $path = false;//path to access this route
+    public $path = null;//path to access this route
     public $callback;//function used as callback
     public $matches = [];//advanced matches rules
     public $params = [];
+    public $cond = false;
 
     /**
      * Route constructor.
@@ -18,9 +19,14 @@ class Route{
         return $this;
     }
 
-    public function only_if($a){//add a condition to enable this route
+    public function only_if($a,$callback = false){//add a condition to enable this route
+        $this->cond = true;
         if($a !== true){
-            $this->path = false;
+            if($callback == false){
+                $this->path = false;
+            }else{
+                $this->callback = $callback;
+            }
         }
         return $this;
     }
@@ -52,6 +58,8 @@ class Route{
         if($this->path == false){
             return false;
         }
+        $url = rtrim($url,'/').'/';
+        $this->path = rtrim($this->path,'/').'/';
         $path = preg_replace_callback('#{([\w]+)}#', [$this, 'checkParams'], $this->path);
         $regex = "#^$path$#i";
         if(!preg_match($regex, $url, $matches)){

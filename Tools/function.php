@@ -60,11 +60,11 @@ function get($url){
 }
 
 function loadCSS($name){
-    echo '<link rel="stylesheet" href="'.root().'public/css/'.$name.'.css">';
+    echo '<link rel="stylesheet" href="public/css/'.$name.'.min.css">';
 }
 
 function loadJS($name){
-    echo '<script src="'.root().'public/js/'.$name.'.js"></script>';
+    echo '<script src="public/js/'.$name.'.js"></script>';
 }
 
 function speaking_format($date){

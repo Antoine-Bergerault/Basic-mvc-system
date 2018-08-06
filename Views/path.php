@@ -31,7 +31,7 @@
         <code>
 <span class="class">Router</span>::<span class="method">post</span>(<span class="string">'/login'</span>,<span class="string">'MainController@login'</span>);
 <span class="class">Router</span>::<span class="method">post</span>(<span class="string">'/logout'</span>,<span class="function-keyword">function</span>(){
-    <span class="return">return</span> <span class="function">view</span>(<span class="string">'model'</span>);
+    <span class="return">return</span> <span class="function">view</span>(<span class="string">'user/logout'</span>);
 });        </code>
         </pre></li>
         <li><h3>Router::group()</h3>
@@ -61,6 +61,7 @@
         </pre></li>
         <li><h3>Router::get(...)->with()</h3>
         <p>This method apply a condition to a desired parameter</p>
+
         <pre class="code">
         <code>
 <span class="class">Router</span>::<span class="method">get</span>(<span class="string">'/article/{id}'</span>,<span class="string">'MainController@article'</span>)-><span class="method">with</span>(<span class="string">'id'</span>,<span class="string">'/([0-9]+)/'</span>);<span class="comment">//the parameter id must be an integer</span>
@@ -68,15 +69,27 @@
     <span class="return">return</span> <span class="function">view</span>(<span class="string">'user-info'</span>,<span class="function">compact</span>([<span class="string">'id'</span>,<span class="string">'name'</span>]));
 })-><span class="method">with</span>(<span class="string">'id'</span>,<span class="string">'/([0-9]+)/'</span>);</code>
         </pre></li>
+
         <h2>Condition for the path</h2>
         <li><h3>Router::get(...)->only_if()</h3>
         <p>This method allows the path only if the condition inside it returns true</p>
+
         <pre class="code">
         <code>
 <span class="class">Router</span>::<span class="method">post</span>(<span class="string">'edit/user'</span>,<span class="function-keyword">function</span>(){
     <span class="return">return</span> <span class="function">view</span>(<span class="string">'edit/user'</span>);
 })-><span class="method">only_if</span>(<span class="class">App</span>::<span class="method">is_connected</span>());</code>
         </pre></li>
+
+        <li>
+        <p>A second parameter can be used to execute a function or a Controller's method if the condition is not respected</p>
+        <pre class="code">
+        <code>
+<span class="class">Router</span>::<span class="method">post</span>(<span class="string">'edit/user'</span>,<span class="function-keyword">function</span>(){
+    <span class="return">return</span> <span class="function">view</span>(<span class="string">'edit/user'</span>);
+})-><span class="method">only_if</span>(<span class="class">App</span>::<span class="method">is_connected</span>(),<span class="string">'MainController@noedit'</span>);</code>
+        </pre></li>
+
         <h2>How to get the entire absolute path ?</h2>
         <li><h3>route()</h3>
         <p>This function (defined in <span class="path">Tools/function.php</span>) allows you to get the entire absolute url.</p>

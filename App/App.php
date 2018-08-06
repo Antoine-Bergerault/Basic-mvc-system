@@ -19,7 +19,7 @@ class App{
     }
 
     static function load_extra(){
-
+        
         require_once('Extras.php');
         $Extras = new Extras();
 
@@ -32,11 +32,6 @@ class App{
     static function extra(){
         require_once('Extras.php');
         $Extras = new Extras();
-        /*if(self::get('active-func')){
-            echo $Extras->my_func();
-            loadCSS('css_file');
-            loadJS('js_file');
-        }*/
         if(self::isset_session('debug')){
             echo $Extras->debug(self::get('debug'));
         }

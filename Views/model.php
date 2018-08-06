@@ -23,28 +23,28 @@
     <ul id="ways">
         <li><h3>To select all the elements from the model's table :</h3>
         <pre class="code">
-<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">all</span>()</code></pre>
+<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">all</span>();</code></pre>
         </li>
         <li><h3>To select the first element from the model's table :</h3>
         <pre class="code">
-<code><span class="param">$elem</span> = <span class="param">$Model</span>-><span class="method">first</span>()</code></pre>
+<code><span class="param">$elem</span> = <span class="param">$Model</span>-><span class="method">first</span>();</code></pre>
         </li>
         <li><h3>To select a number $n of elements from the model's table :</h3>
         <pre class="code">
-<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">find</span>(<span class="param">$n</span>)</code></pre>
+<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">find</span>(<span class="param">$n</span>);</code></pre>
         </li>
         <li><h3>To select all the elements from the model's table which respect the condition (WHERE) :</h3>
         <pre class="code">
-<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">where</span>([<span class="string">'name'</span> => <span class="string">'LIKE A%'</span>])</code></pre>
+<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">where</span>([<span class="string">'name'</span> => <span class="string">'LIKE A%'</span>]);</code></pre>
         </li>
         <li><h3>For more security, use this :</h3>
         <pre class="code">
-<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">where</span>([<span class="string">'name'</span> => <span class="string">'LIKE ?%'</span>])-><span class="method">args</span>([<span class="param">$arg</span>])</code></pre>
+<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">where</span>([<span class="string">'name'</span> => <span class="string">'LIKE ?%'</span>])-><span class="method">args</span>([<span class="param">$arg</span>]);</code></pre>
         </li>
         <br><br>
         <li><h3>You can also put several conditions at the same time :</h3>
         <pre class="code">
-<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">find</span>(<span class="param">5</span>)-><span class="method">where</span>([<span class="string">'name'</span> => <span class="string">'LIKE A%'</span>])</code></pre>
+<code><span class="param">$elems</span> = <span class="param">$Model</span>-><span class="method">find</span>(<span class="param">5</span>)-><span class="method">where</span>([<span class="string">'name'</span> => <span class="string">'LIKE A%'</span>]);</code></pre>
         </li>
     </ul>
 
@@ -53,11 +53,11 @@
         <i class="em-svg em-warning" style="height: 95px;width: 95px;"></i>
         <div>
             <h2 style="margin: 0;padding: 0;">Before returning the result of the model, you must execute :</h2>
-                <pre class="code" style="margin: 0;"><code><span class="param">$Model</span>-><span class="method">run</span>()</code></pre>
+                <pre class="code" style="margin: 0;"><code><span class="param">$Model</span>-><span class="method">run</span>();</code></pre>
         </div>
     </div>
 
-    <h3>If you want to know the see the generated query without make the request to the database :</h3>
+    <h3>If you want to know the see the generated query without making the request to the database :</h3>
         <pre class="code no-margin">
 <code><span class="param">$Model</span>-><span class="method">find</span>(<span class="param">5</span>)-><span class="method">where</span>([<span class="string">'name'</span> => <span class="string">'LIKE ?%'</span>,<span class="string">'token'</span> => <span class="string">'= ?'</span>])-><span class="method">args</span>([<span class="string">'A'</span>,<span class="string">'bz75vga23vsaT6QFy5fqv5q'</span>]);
 <span class="param">$Model</span>-><span class="method">sql</span>();</code></pre>

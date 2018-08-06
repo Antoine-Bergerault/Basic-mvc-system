@@ -125,7 +125,7 @@ class Model{
         return $db->query($sql,$data);
     }
 
-    public function create($arg, $table = false){//create a new element using the $arg. ex : ["name" => "Test", "email" => "test@test.com"]
+    public function create($arg, $table = false, $pass = true){//create a new element using the $arg. ex : ["name" => "Test", "email" => "test@test.com"]
         $keys = array_keys($arg);
         if($table == false){
             $table = $this->table;
@@ -144,7 +144,7 @@ class Model{
         $arr = [];
         $n = 0;
         foreach($arg as $k => $v){
-            if($k == 'pass'){
+            if($k == 'pass' && $pass == true){
                 $v = password_hash($v, PASSWORD_BCRYPT);
             }
             $arr[] = $v;
